@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Input, Button, Form } from "antd";
-import { NewsItem } from "../../../types/news";
+import { INewsItem } from "../../../../types/news";
 import cl from "./NewsForm.module.scss";
 interface NewsFormProps {
-  onSave: (news: NewsItem) => void;
-  editNews?: NewsItem;
+  onSave: (news: INewsItem) => void;
+  editNews?: INewsItem;
   onCancel: () => void;
   setIsFormChanged: (isChanged: boolean) => void; // Новая пропса для отслеживания изменений
 }
@@ -55,6 +55,7 @@ export const NewsForm: React.FC<NewsFormProps> = ({
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Введите содержание новости"
+            className={cl.desc}
           />
         </Form.Item>
       </div>

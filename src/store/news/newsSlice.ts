@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NewsItem } from "../../types/news";
+import { INewsItem } from "../../types/news";
 
-// Достаем данные из localStorage при старте
-const initialState: NewsItem[] = JSON.parse(
+const initialState: INewsItem[] = JSON.parse(
   localStorage.getItem("news_data") || "[]"
 );
 
@@ -10,11 +9,11 @@ const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {
-    addNews: (state, action: PayloadAction<NewsItem>) => {
+    addNews: (state, action: PayloadAction<INewsItem>) => {
       state.push(action.payload);
       localStorage.setItem("news_data", JSON.stringify(state));
     },
-    updateNews: (state, action: PayloadAction<NewsItem>) => {
+    updateNews: (state, action: PayloadAction<INewsItem>) => {
       const index = state.findIndex((n) => n.id === action.payload.id);
       if (index !== -1) {
         state[index] = action.payload;

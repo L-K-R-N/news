@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { NewsItem } from "../types/news";
+import { INewsItem } from "../types/news";
 
 type SortOrder = "ascend" | "descend" | null;
 
 interface UseNewsFilterSortProps {
-  newsList: NewsItem[];
+  newsList: INewsItem[];
 }
 
 export const useNewsFilterSort = ({ newsList }: UseNewsFilterSortProps) => {

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button, Modal, message, Typography, Space } from "antd";
-import { NewsForm } from "../../components/layout/news/NewsForm";
-import { NewsList } from "../../components/layout/news/NewsList";
+import { NewsForm } from "../../components/layout/news/NewsForm/NewsForm";
+import { NewsList } from "../../components/layout/news/NewsList/NewsList";
 import { useAppSelector, useAppDispatch } from "../../hooks/redux";
 import { updateNews, addNews, deleteNews } from "../../store/news/newsSlice";
-import { NewsItem } from "../../types/news";
+import { INewsItem } from "../../types/news";
 import cl from "./HomePage.module.scss";
 const { Title } = Typography;
 
@@ -12,7 +12,7 @@ export const HomePage = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const newsList = useAppSelector((state) => state.news);
   const dispatch = useAppDispatch();
-  const [editingNews, setEditingNews] = useState<NewsItem | null>(null);
+  const [editingNews, setEditingNews] = useState<INewsItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modal, contextHolderModal] = Modal.useModal();
   const [isFormChanged, setIsFormChanged] = useState(false); // Новый стейт для отслеживания изменений
@@ -23,12 +23,12 @@ export const HomePage = () => {
     setIsModalOpen(true);
   };
 
-  const openEditModal = (news: NewsItem) => {
+  const openEditModal = (news: INewsItem) => {
     setEditingNews(news);
     setIsModalOpen(true);
   };
 
-  const handleSave = (news: NewsItem) => {
+  const handleSave = (news: INewsItem) => {
     if (editingNews) {
       dispatch(updateNews(news));
       messageApi.open({
@@ -49,6 +49,8 @@ export const HomePage = () => {
     modal.confirm({
       title: "Вы уверены, что хотите удалить эту новость?",
       content: "Это действие нельзя отменить.",
+      okText: "Удалить",
+      cancelText: "Отмена",
       onOk: () => {
         dispatch(deleteNews(id)); // Удаляем новость из хранилища
         messageApi.open({
@@ -66,18 +68,18 @@ export const HomePage = () => {
   const handleModalCancel = () => {
     if (isFormChanged) {
       modal.confirm({
+        cancelText: "Отмена",
+        okText: "Да",
         title: "Вы уверены?",
         content:
           "Вы внесли изменения. Если выйдете, изменения не будут сохранены.",
         onOk: () => {
-          setIsModalOpen(false); // Закрываем модальное окно, если подтверждено
+          setIsModalOpen(false);
         },
-        onCancel: () => {
-          // Не делаем ничего, если отменили
-        },
+        onCancel: () => {},
       });
     } else {
-      setIsModalOpen(false); // Просто закрываем, если нет изменений
+      setIsModalOpen(false);
     }
   };
 
@@ -98,6 +100,7 @@ export const HomePage = () => {
             type="primary"
             onClick={openAddModal}
             className={cl.createBtn}
+            size="middle"
           >
             Добавить новость
           </Button>

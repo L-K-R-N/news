@@ -4,6 +4,16 @@
   gap: 20px;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.content {
+  width: 100%;
+}
+
 .text {
   font-size: large;
 }
@@ -28,6 +38,9 @@
     padding: 10px 20px;
   }
 
+  .title {
+    font-size: 25px !important;
+  }
   .header {
     width: 100%;
   }
