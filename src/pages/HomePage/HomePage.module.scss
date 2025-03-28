@@ -1,0 +1,27 @@
+.createBtn {
+}
+
+@media screen and (max-width: 800px) {
+  .createBtn {
+  }
+}
+@media screen and (max-width: 500px) {
+  .createBtn {
+  }
+}
+@media screen and (max-width: 420px) {
+  .createBtnContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    // right: 20px;
+    z-index: 100;
+    min-width: 100vw;
+    background: white;
+    padding: 10px 20px;
+  }
+
+  .createBtn {
+    width: 100%;
+  }
+}
